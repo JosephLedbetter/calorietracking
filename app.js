@@ -16,10 +16,15 @@ const ItemCtrl = (function(){
             {id: 0, name: 'Steak Dinner', calories: 1200},
             {id: 0, name: 'Eggs', calories: 400},
             {id: 0, name: 'Omelette', calories: 800}
-
         ], 
         currentItem: null,
         totalCalories: 0
+    }
+
+    return {
+        logData: function(){
+            return data;
+        }
     }
 })();
 
@@ -32,4 +37,13 @@ const UICtrl = (function(){
 //Application Controller
 const App = (function(ItemCtrl, UICtrl){
 
+    return{
+        init: function(){
+            console.log('Initializing Application')
+        }
+    }
+
 })(ItemCtrl, UICtrl);
+
+//Initializing app
+App.init();
