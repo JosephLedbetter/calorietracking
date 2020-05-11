@@ -37,7 +37,10 @@ const ItemCtrl = (function(){
 //UI Controller
 const UICtrl = (function(){
     const UISelectors = {
-        itemList: '#item-list'
+        itemList: '#item-list',
+        addBtn: '.add-btn',
+        itemNameInput: '#item-name',
+        itemCaloriesInput: '#item-calories'
     }
     //public method
     return {
@@ -54,6 +57,15 @@ const UICtrl = (function(){
             //insert list items
             document.querySelector(UISelectors.itemList).innerHTML = 
             html;
+        },
+        getItemInput: function(){
+            return {
+                name: document.querySelector(UISelectors.itemNameInput).value,
+                calories: document.querySelector(UISelectors.itemCaloriesInput).value,
+            }
+        },
+        getSelectors: function(){
+            return UISelectors;
         }
     }
 })();
@@ -63,14 +75,35 @@ const UICtrl = (function(){
 //______
 //Application Controller
 const App = (function(ItemCtrl, UICtrl){
+    //load event listeners
+    const loadEventListeners = function(){
+        //get UISelectors
+        const UISelectors = UICtrl.getSelectors();
+
+        //add item event
+        document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
+    }
+
+   const itemAddSubmit = function(e){
+       const input = UICtrl.getItemInput();
+       console.log(input)
+       e.preventDefault();
+   }
+
     //public method
     return{
         init: function(){
             console.log('Initializing Application')
+
             //fetching items from the data structure
             const items = ItemCtrl.getItems();
+
             //populate list with the items 
-            UICtrl.populateItemList(items)
+            UICtrl.populateItemList(items);
+
+            //load event listeners
+            loadEventListeners();
+
         }
     }
 
