@@ -13,9 +13,9 @@ const ItemCtrl = (function(){
     //data structure/state
     const data = {
         items: [
-            {id: 0, name: 'Steak Dinner', calories: 1200},
-            {id: 1, name: 'Eggs', calories: 400},
-            {id: 2, name: 'Omelette', calories: 800}
+            // {id: 0, name: 'Steak Dinner', calories: 1200},
+            // {id: 1, name: 'Eggs', calories: 400},
+            // {id: 2, name: 'Omelette', calories: 800}
         ], 
         currentItem: null,
         totalCalories: 0
@@ -50,7 +50,7 @@ const ItemCtrl = (function(){
 
 
 
-//_____
+//_________________________________________________________________________________
 //UI Controller
 const UICtrl = (function(){
     const UISelectors = {
@@ -96,9 +96,12 @@ const UICtrl = (function(){
             //insert item into the list
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
         },
-        clearInputFields(){
+        clearInputFields: function(){
             document.querySelector(UISelectors.itemNameInput).value = '';
             document.querySelector(UISelectors.itemCaloriesInput).value = '';
+        },
+        hideList: function(){
+            document.querySelector(UISelectors.itemList).style.display = 'none';
         },
         getSelectors: function(){
             return UISelectors;
@@ -108,7 +111,7 @@ const UICtrl = (function(){
 
 
 
-//______
+//_________________________________________________________________________________
 //Application Controller
 const App = (function(ItemCtrl, UICtrl){
     //load event listeners
@@ -146,19 +149,18 @@ const App = (function(ItemCtrl, UICtrl){
             //fetching items from the data structure
             const items = ItemCtrl.getItems();
 
-            //populate list with the items 
-            UICtrl.populateItemList(items);
-
+            //check if any items
+            if (items.length === 0){
+                UICtrl.hideList();
+            } else {
+                UICtrl.populateItemList(items);
+            }
             //load event listeners
             loadEventListeners();
-
         }
     }
 
 })(ItemCtrl, UICtrl);
-
-
-
 
 //Initializing app
 App.init();
