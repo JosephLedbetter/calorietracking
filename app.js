@@ -96,6 +96,10 @@ const UICtrl = (function(){
             //insert item into the list
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
         },
+        clearInputFields(){
+            document.querySelector(UISelectors.itemNameInput).value = '';
+            document.querySelector(UISelectors.itemCaloriesInput).value = '';
+        },
         getSelectors: function(){
             return UISelectors;
         }
@@ -123,11 +127,14 @@ const App = (function(ItemCtrl, UICtrl){
 
         //check for name and calorie input
         if (input.name !== '' && input.calories !== ''){
-            //add item
-           const  newItem = ItemCtrl.addItem(input.name, input.calories)
-        }
-        //add itme to the ui list
+            //Add item
+           const  newItem = ItemCtrl.addItem(input.name, input.calories);
+             //Add itme to the ui list
         UICtrl.addListItem(newItem)
+
+        //Clear fields
+            UICtrl.clearInputFields();
+        }
        e.preventDefault();
    }
 
