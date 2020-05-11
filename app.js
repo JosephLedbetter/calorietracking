@@ -83,6 +83,8 @@ const UICtrl = (function(){
             }
         },
         addListItem: function(item){
+            //show list
+            document.querySelector(UISelectors.itemList).style.display = 'block';
             //create 'li' element
             const li = document.createElement('li');
             //add class
