@@ -14,8 +14,8 @@ const ItemCtrl = (function(){
     const data = {
         items: [
             {id: 0, name: 'Steak Dinner', calories: 1200},
-            {id: 0, name: 'Eggs', calories: 400},
-            {id: 0, name: 'Omelette', calories: 800}
+            {id: 1, name: 'Eggs', calories: 400},
+            {id: 2, name: 'Omelette', calories: 800}
         ], 
         currentItem: null,
         totalCalories: 0
@@ -82,6 +82,20 @@ const UICtrl = (function(){
                 calories: document.querySelector(UISelectors.itemCaloriesInput).value,
             }
         },
+        addListItem: function(item){
+            //create 'li' element
+            const li = document.createElement('li');
+            //add class
+            li.className = 'collection-item';
+            li.id = `item-${item.id}`;
+            li.innerHTML = ` <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+            <a href="#" class="secondary-content">
+                <i class="edit-item fa fa-pencil"></i>
+            </a>`;
+
+            //insert item into the list
+            document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
+        },
         getSelectors: function(){
             return UISelectors;
         }
@@ -112,6 +126,8 @@ const App = (function(ItemCtrl, UICtrl){
             //add item
            const  newItem = ItemCtrl.addItem(input.name, input.calories)
         }
+        //add itme to the ui list
+        UICtrl.addListItem(newItem)
        e.preventDefault();
    }
 
