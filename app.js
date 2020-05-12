@@ -128,7 +128,7 @@ const UICtrl = (function(){
             //insert item into the list
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li)
         },
-        clearInputFields: function(){
+        clearInput: function(){
             document.querySelector(UISelectors.itemNameInput).value = '';
             document.querySelector(UISelectors.itemCaloriesInput).value = '';
         },
@@ -137,21 +137,20 @@ const UICtrl = (function(){
             document.querySelector(UISelectors.itemCaloriesInput).value = ItemCtrl.getCurrentItem().calories;
             UICtrl.showEditState();
         },
-        hideList: function(){
+        hideList: function(){ 
             document.querySelector(UISelectors.itemList).style.display = 'none';
         },
         showTotalCalories: function(totalCalories){
             document.querySelector(UISelectors.totalCalories).textContent = totalCalories;
         },
         clearEditState: function(){
-            UICtrl.clearInputFields();
+            UICtrl.clearInput();
             document.querySelector(UISelectors.updateBtn).style.display = 'none';
             document.querySelector(UISelectors.clearBtn).style.display = 'none';
             document.querySelector(UISelectors.backBtn).style.display = 'none';
             document.querySelector(UISelectors.addBtn).style.display = 'inline';
         },
         showEditState: function(){
-            UICtrl.clearInputFields();
             document.querySelector(UISelectors.updateBtn).style.display = 'inline';
             document.querySelector(UISelectors.clearBtn).style.display = 'inline';
             document.querySelector(UISelectors.backBtn).style.display = 'inline';
@@ -177,14 +176,22 @@ const App = (function(ItemCtrl, UICtrl){
         //add item event
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
 
+        // disable submit on pressing enter key
+        document.addEventListener('', function(e){
+            if(e.keyCode === 13 || e.which === 13);
+            e.preventDefault();
+            return false;
+        });
+
         //edit icon click
-        document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick)
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit);
+
+        //update item event
+        document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit);
     }
 
    const itemAddSubmit = function(e){
        const input = UICtrl.getItemInput();
-       console.log(input)
-
 
         //check for name and calorie input
         if (input.name !== '' && input.calories !== ''){
@@ -201,43 +208,43 @@ const App = (function(ItemCtrl, UICtrl){
         UICtrl.showTotalCalories(totalCalories);
 
         //Clear fields
-        UICtrl.clearInputFields();
+        UICtrl.clearInput();
         }
        e.preventDefault();
    }
 
    //click item edit
-   const itemEditClick = function(e){
-    if(e.target.classList.contains('edit-item'))
-
+   const itemUpdateSubmit = function(e){
+    if(e.target.classList.contains('edit-item')){
     //get list-item ID
-    listId = e.target.parentNode.parentNode.id;
-    console.log(listId)
-
+    const listId = e.target.parentNode.parentNode.id;
     //break into an array @ the dash 
     const listIdArr = listId.split('-');
-
+   
     //get the actually ID number by ...
     const id = parseInt(listIdArr[1]);
-
     //get entire item
     const itemToEdit = ItemCtrl.getItemById(id);
-    
+
+    console.log(itemToEdit)
     //set current item
     ItemCtrl.setCurrentItem(itemToEdit);
 
-    //set item to form
+
+    //ADD ITEM TO FORM
     UICtrl.addItemToForm();
 
+    }
     e.preventDefault();
+    
    }
+
 
     //public method
     return{
         init: function(){
             //set initial state
             UICtrl.clearEditState();
-            console.log('Initializing Application')
 
             //fetching items from the data structure
             const items = ItemCtrl.getItems();
