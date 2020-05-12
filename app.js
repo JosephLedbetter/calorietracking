@@ -73,9 +73,6 @@ const UICtrl = (function(){
         itemNameInput: '#item-name',
         itemCaloriesInput: '#item-calories',
         totalCalories: '.total-calories',
-        
-
- 
     }
     //public method
     return {
@@ -151,6 +148,9 @@ const App = (function(ItemCtrl, UICtrl){
 
         //add item event
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
+
+        //edit icon click
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit)
     }
 
    const itemAddSubmit = function(e){
@@ -162,7 +162,8 @@ const App = (function(ItemCtrl, UICtrl){
         if (input.name !== '' && input.calories !== ''){
             //Add item
            const  newItem = ItemCtrl.addItem(input.name, input.calories);
-             //Add item to the ui list
+
+        //Add item to the ui list
         UICtrl.addListItem(newItem);
 
         //get total calories
@@ -175,6 +176,13 @@ const App = (function(ItemCtrl, UICtrl){
             UICtrl.clearInputFields();
         }
        e.preventDefault();
+   }
+
+   //Update item submit
+   const itemUpdateSubmit = function(e){
+
+    console.log('successful')
+    e.preventDefault();
    }
 
     //public method
