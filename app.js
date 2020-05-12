@@ -178,7 +178,7 @@ const App = (function(ItemCtrl, UICtrl){
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
 
         //edit icon click
-        document.querySelector(UISelectors.itemList).addEventListener('click', itemUpdateSubmit)
+        document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick)
     }
 
    const itemAddSubmit = function(e){
@@ -206,8 +206,8 @@ const App = (function(ItemCtrl, UICtrl){
        e.preventDefault();
    }
 
-   //Update item submit
-   const itemUpdateSubmit = function(e){
+   //click item edit
+   const itemEditClick = function(e){
     if(e.target.classList.contains('edit-item'))
 
     //get list-item ID
