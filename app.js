@@ -173,15 +173,23 @@ const App = (function(ItemCtrl, UICtrl){
         UICtrl.showTotalCalories(totalCalories);
 
         //Clear fields
-            UICtrl.clearInputFields();
+        UICtrl.clearInputFields();
         }
        e.preventDefault();
    }
 
    //Update item submit
    const itemUpdateSubmit = function(e){
+    if(e.target.classList.contains('edit-item'))
 
-    console.log('successful')
+    //get list-item ID
+    listId = e.target.parentNode.parentNode.id;
+    console.log(listId)
+
+    //break into an array @ the dash 
+    const listIdArr = listId.split('-');
+    console.log(listIdArr)
+
     e.preventDefault();
    }
 
