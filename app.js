@@ -347,6 +347,15 @@ const itemDeleteSubmit = function(e){
 
     //DELETE FROM THE UI
     UICtrl.deleteListItem(currentItem.id);
+
+    //GET TOTAL CALORIES
+    const totalCalories = ItemCtrl.getTotalCalories()
+
+    //ADD TOTAL CALORIES TO UI
+    UICtrl.showTotalCalories(totalCalories);
+
+    UICtrl.clearEditState();
+
     e.preventDefault();   
 }
 
