@@ -14,13 +14,13 @@ const ItemCtrl = (function(){
         this.name = name;
         this.calories = calories;
     }
-    //DATA STRUCTURE / STATE
+    //DATA STRUCTURE & STATES
     const data = {
         items: [], 
         currentItem: null,
         totalCalories: 0
     }
-    //PUBLIC METHODS --> GIVES YOU THE ABILITY TO CALL TEH SPECIFIC ITEMS YOU NEED TO WORK WITH AND PASS THROUGH THE FUNCTIONS
+    //PUBLIC METHODS --> GIVES YOU THE ABILITY TO CALL TEH SPECIFIC ITEMS YOU NEED TO WORK WITH THE DATA STRUCTURES & PASS THROUGH THE NECESSARY FUNCTIONS
     return {
         getItems: function(){
             return data.items;
@@ -180,7 +180,14 @@ const UICtrl = (function(){
             });
         }, 
         clearAll: function(){
+            let listItems = document.querySelectorAll(UISelectors.listItems);
 
+            //TURN NODE LIST INTO AN ARRAY
+            listItems = Array.from(listItems);
+
+            listItems.forEach(function(item){
+                item.remove();
+            })
         },
         deleteListItem: function(id){
             const itemID = `#item-${id}`;
@@ -377,6 +384,18 @@ const itemDeleteSubmit = function(e){
 const clearAll = function(e){
     //DELETING ALL ITEMS FROM THE DATA STRUCTURE
     ItemCtrl.clearAllItems();  
+
+    //REMOVE FROM UI
+    UICtrl.clearAll();
+
+    //GET TOTAL CALORIES
+    const totalCalories = ItemCtrl.getTotalCalories()
+
+    //ADD TOTAL CALORIES TO UI
+    UICtrl.showTotalCalories(totalCalories);
+
+    //HIDE UL
+    UICtrl.hideList();
 
     e.preventDefault();
 }
