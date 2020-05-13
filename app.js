@@ -1,6 +1,10 @@
 //Storage Controller
 
 //Item Controller
+//Item Controller
+//Item Controller
+//Item Controller
+//Item Controller
 
 /*item controller ify statement running immediately */
 const ItemCtrl = (function(){
@@ -10,17 +14,13 @@ const ItemCtrl = (function(){
         this.name = name;
         this.calories = calories;
     }
-    //data structure/state
+    //DATA STRUCTURE / STATE
     const data = {
-        items: [
-            // {id: 0, name: 'Steak Dinner', calories: 1200},
-            // {id: 1, name: 'Eggs', calories: 400},
-            // {id: 2, name: 'Omelette', calories: 800}
-        ], 
+        items: [], 
         currentItem: null,
         totalCalories: 0
     }
-    //public methods
+    //PUBLIC METHODS --> GIVES YOU THE ABILITY TO CALL TEH SPECIFIC ITEMS YOU NEED TO WORK WITH AND PASS THROUGH THE FUNCTIONS
     return {
         getItems: function(){
             return data.items;
@@ -93,6 +93,10 @@ const ItemCtrl = (function(){
 
 //_________________________________________________________________________________
 //UI Controller
+//UI Controller
+//UI Controller
+//UI Controller
+//UI Controller
 const UICtrl = (function(){
     const UISelectors = {
         itemList: '#item-list',
@@ -105,7 +109,8 @@ const UICtrl = (function(){
         itemCaloriesInput: '#item-calories',
         totalCalories: '.total-calories',
     }
-    //public method
+    //PUBLIC METHOD --> MAKING ALL FUNCTIONS BELOW APART OF THE UICTRL 'GROUP'
+    //(this means when you need to call a specific function below then you will place 'UICtrl.' infront of your desired function to call)
     return {
         populateItemList: function(items){
             let html = '';
@@ -200,13 +205,22 @@ const UICtrl = (function(){
 //_________________________________________________________________________________
 
 //APPLICATION CONTROLLER
+//APPLICATION CONTROLLER
+//APPLICATION CONTROLLER
+//APPLICATION CONTROLLER
+//APPLICATION CONTROLLER
 const App = (function(ItemCtrl, UICtrl){
     //load event listeners
     const loadEventListeners = function(){
         //GET UISelectors
         const UISelectors = UICtrl.getSelectors();
 
-        //ADD ITEM EVENT
+
+//**** ALL CLICK EVENT LISTENERS ****
+//**** ALL CLICK EVENT LISTENERS ****
+//**** ALL CLICK EVENT LISTENERS ****
+
+        //ADD ITEM CLICK
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
 
         // DISABLE THE 'ENTER' KEY WHEN UPDATING ITEM
@@ -220,17 +234,20 @@ const App = (function(ItemCtrl, UICtrl){
         //EDIT ICON CLICK
         document.querySelector(UISelectors.itemList).addEventListener('click', itemEditClick);
 
-        //UPDATE ITEM EVENT 
+        //UPDATE ITEM CLICK 
         document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit);
 
-        //BACK BUTTON EVENT
+        //BACK BUTTON CLICK
+        document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
+
+        //DELETE BUTTON CLICK
         document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
 
     }
 
     //**** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
-    // **** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
-    // **** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
+    //**** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
+    //**** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
    const itemAddSubmit = function(e){
        const input = UICtrl.getItemInput();
 
@@ -261,6 +278,7 @@ const App = (function(ItemCtrl, UICtrl){
     if(e.target.classList.contains('edit-item')){
     //get list-item ID
     const listId = e.target.parentNode.parentNode.id;
+
     //break into an array @ the dash 
     const listIdArr = listId.split('-');
    
@@ -269,14 +287,11 @@ const App = (function(ItemCtrl, UICtrl){
     //get entire item
     const itemToEdit = ItemCtrl.getItemById(id);
 
-    console.log(itemToEdit)
     //set current item
     ItemCtrl.setCurrentItem(itemToEdit);
 
-
     //ADD ITEM TO FORM
     UICtrl.addItemToForm();
-
     }
     e.preventDefault();
    }
