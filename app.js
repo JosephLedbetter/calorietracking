@@ -76,6 +76,9 @@ const ItemCtrl = (function(){
             // REMOVE ITEM FROM ARRAY
             data.items.splice(index, 1);
         },
+        clearAllItems: function(){
+            data.items = [];
+        },
         setCurrentItem: function(item){
             data.currentItem = item; 
         },
@@ -115,6 +118,7 @@ const UICtrl = (function(){
         updateBtn: '.update-btn',
         deleteBtn: '.delete-btn',
         backBtn: '.back-btn',
+        clearBtn: '.clear-btn',
         itemNameInput: '#item-name',
         itemCaloriesInput: '#item-calories',
         totalCalories: '.total-calories',
@@ -175,6 +179,9 @@ const UICtrl = (function(){
                 }
             });
         }, 
+        clearAll: function(){
+
+        },
         deleteListItem: function(id){
             const itemID = `#item-${id}`;
             const item = document.querySelector(itemID);
@@ -259,6 +266,10 @@ const App = (function(ItemCtrl, UICtrl){
 
         //DELETE BUTTON CLICK
         document.querySelector(UISelectors.deleteBtn).addEventListener('click', itemDeleteSubmit);
+
+        // CLEAR ALL BUTTON CLICK
+         //DELETE BUTTON CLICK
+         document.querySelector(UISelectors.clearBtn).addEventListener('click', clearAll);
 
     }
 
@@ -357,6 +368,17 @@ const itemDeleteSubmit = function(e){
     UICtrl.clearEditState();
 
     e.preventDefault();   
+}
+
+//CLEAR ALL ITEMS
+//CLEAR ALL ITEMS
+//CLEAR ALL ITEMS
+//CLEAR ALL ITEMS
+const clearAll = function(e){
+    //DELETING ALL ITEMS FROM THE DATA STRUCTURE
+    ItemCtrl.clearAllItems();  
+
+    e.preventDefault();
 }
 
     //public method
