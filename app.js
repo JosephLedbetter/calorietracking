@@ -289,6 +289,7 @@ const App = (function(ItemCtrl, UICtrl){
         // ADD TOTAL CALORIES TO UI
         UICtrl.showTotalCalories(totalCalories);
 
+        UICtrl.clearEditState();
         e.preventDefault()
     }
 
