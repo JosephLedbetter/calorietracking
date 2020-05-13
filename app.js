@@ -147,7 +147,6 @@ const UICtrl = (function(){
             let listItems = document.querySelectorAll(UISelectors.listItems);
             //TURN NODE LIST INTO ARRAY
             listItems = Array.from(listItems);
-            console.log(listItems)
             
             listItems.forEach(function(listItem){
                 const itemID = listItem.getAttribute('id');
@@ -223,8 +222,15 @@ const App = (function(ItemCtrl, UICtrl){
 
         //UPDATE ITEM EVENT 
         document.querySelector(UISelectors.updateBtn).addEventListener('click', itemUpdateSubmit);
+
+        //BACK BUTTON EVENT
+        document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
+
     }
 
+    //**** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
+    // **** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
+    // **** ADD ITEM AND SUBMIT TO THE ITEM-LIST HOLDER *****
    const itemAddSubmit = function(e){
        const input = UICtrl.getItemInput();
 
@@ -233,13 +239,13 @@ const App = (function(ItemCtrl, UICtrl){
             //Add item
            const  newItem = ItemCtrl.addItem(input.name, input.calories);
 
-        //Add item to the ui list
+        //ADD ITEM TO THE LIST
         UICtrl.addListItem(newItem);
 
-        //get total calories
+        //GET TOTAL CALORIES
         const totalCalories = ItemCtrl.getTotalCalories();
 
-        //add total calories to UI
+        //ADD TOTAL CALORIES TO THE UI
         UICtrl.showTotalCalories(totalCalories);
 
         //Clear fields
@@ -248,7 +254,9 @@ const App = (function(ItemCtrl, UICtrl){
        e.preventDefault();
    }
 
-   //click item edit
+   //**** EDIT ITEM WHEN CLICKING ON THE PENCIL ICON ****
+   //**** EDIT ITEM WHEN CLICKING ON THE PENCIL ICON ****
+   //**** EDIT ITEM WHEN CLICKING ON THE PENCIL ICON ****
    const itemEditClick = function(e){
     if(e.target.classList.contains('edit-item')){
     //get list-item ID
@@ -270,10 +278,12 @@ const App = (function(ItemCtrl, UICtrl){
     UICtrl.addItemToForm();
 
     }
-    e.preven
+    e.preventDefault();
    }
 
-    //ITEM UPDATE SUBMIT 
+    //**** CLICK ON UPDATE BUTTON WHEN EDITING AN ITEM AND RESUBMITTING ****
+    //**** CLICK ON UPDATE BUTTON WHEN EDITING AN ITEM AND RESUBMITTING ****
+    //**** CLICK ON UPDATE BUTTON WHEN EDITING AN ITEM AND RESUBMITTING ****
     const itemUpdateSubmit = function(e){
         //GET ITEM INPUT
         const input = UICtrl.getItemInput();
@@ -292,7 +302,6 @@ const App = (function(ItemCtrl, UICtrl){
         UICtrl.clearEditState();
         e.preventDefault()
     }
-
     //public method
     return{
         init: function(){
