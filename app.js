@@ -68,7 +68,7 @@ const ItemCtrl = (function(){
         },
         deleteItem: function(id){
             // GET ID'S
-            ids = data.items.map(function(item){
+            ids = data.items.map(function (item){
                 return item.id
             });
             //GET THE INDEX
@@ -175,6 +175,11 @@ const UICtrl = (function(){
                 }
             });
         }, 
+        deleteListItem: function(id){
+            const itemID = `#item-${id}`;
+            const item = document.querySelector(itemID);
+            item.remove();
+        },
         clearInput: function(){
             document.querySelector(UISelectors.itemNameInput).value = '';
             document.querySelector(UISelectors.itemCaloriesInput).value = '';
@@ -340,6 +345,8 @@ const itemDeleteSubmit = function(e){
     //DELETE FROM DATA STRUCTURE
     ItemCtrl.deleteItem(currentItem.id);
 
+    //DELETE FROM THE UI
+    UICtrl.deleteListItem(currentItem.id);
     e.preventDefault();   
 }
 
