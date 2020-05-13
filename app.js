@@ -66,6 +66,16 @@ const ItemCtrl = (function(){
             });
             return found;
         },
+        deleteItem: function(id){
+            // GET ID'S
+            ids = data.items.map(function(item){
+                return item.id
+            });
+            //GET THE INDEX
+            const index = ids.indexOf(id);
+            // REMOVE ITEM FROM ARRAY
+            data.items.splice(index, 1);
+        },
         setCurrentItem: function(item){
             data.currentItem = item; 
         },
@@ -103,7 +113,7 @@ const UICtrl = (function(){
         listItems: '#item-list li',
         addBtn: '.add-btn',
         updateBtn: '.update-btn',
-        clearBtn: '.delete-btn',
+        deleteBtn: '.delete-btn',
         backBtn: '.back-btn',
         itemNameInput: '#item-name',
         itemCaloriesInput: '#item-calories',
@@ -183,13 +193,13 @@ const UICtrl = (function(){
         clearEditState: function(){
             UICtrl.clearInput();
             document.querySelector(UISelectors.updateBtn).style.display = 'none';
-            document.querySelector(UISelectors.clearBtn).style.display = 'none';
+            document.querySelector(UISelectors.deleteBtn).style.display = 'none';
             document.querySelector(UISelectors.backBtn).style.display = 'none';
             document.querySelector(UISelectors.addBtn).style.display = 'inline';
         },
         showEditState: function(){
             document.querySelector(UISelectors.updateBtn).style.display = 'inline';
-            document.querySelector(UISelectors.clearBtn).style.display = 'inline';
+            document.querySelector(UISelectors.deleteBtn).style.display = 'inline';
             document.querySelector(UISelectors.backBtn).style.display = 'inline';
             document.querySelector(UISelectors.addBtn).style.display = 'none';
         },
@@ -220,6 +230,8 @@ const App = (function(ItemCtrl, UICtrl){
 //**** ALL CLICK EVENT LISTENERS ****
 //**** ALL CLICK EVENT LISTENERS ****
 
+// ____ ITEM CONTROLLER _____
+
         //ADD ITEM CLICK
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
 
@@ -241,7 +253,7 @@ const App = (function(ItemCtrl, UICtrl){
         document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
 
         //DELETE BUTTON CLICK
-        document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
+        document.querySelector(UISelectors.deleteBtn).addEventListener('click', itemDeleteSubmit);
 
     }
 
@@ -317,6 +329,20 @@ const App = (function(ItemCtrl, UICtrl){
         UICtrl.clearEditState();
         e.preventDefault()
     }
+
+//ITEM DELETE SUBMIT EVENT
+//ITEM DELETE SUBMIT EVENT
+//ITEM DELETE SUBMIT EVENT
+//ITEM DELETE SUBMIT EVENT
+const itemDeleteSubmit = function(e){
+    //RETRIEVE CURRENT ITEM
+    const currentItem = ItemCtrl.getCurrentItem();
+    //DELETE FROM DATA STRUCTURE
+    ItemCtrl.deleteItem(currentItem.id);
+
+    e.preventDefault();   
+}
+
     //public method
     return{
         init: function(){
