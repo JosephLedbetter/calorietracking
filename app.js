@@ -40,12 +40,12 @@ const StorageCtrl = (function(){
 
             items.forEach(function(item, index){
             if(updatedItem.id === item.id){
-                items.splice(index, 1, udpatedItem)
+                items.splice(index, 1, updatedItem)
                 }
             });
         localStorage.setItem('items', JSON.stringify(items));
         },
-        deleteItemFromStorage: function(id){
+        deleteItemsFromStorage: function(id){
             let items = JSON.parse(localStorage.getItem('items'));
           
             items.forEach(function(item, index){
@@ -53,6 +53,7 @@ const StorageCtrl = (function(){
                 items.splice(index, 1)
                 }
             });
+            // localStorage.setItem('items', JSON.stringify(items));
         },
         clearItemsFromStorage: function(){
             localStorage.removeItem('items');
@@ -440,7 +441,7 @@ const itemDeleteSubmit = function(e){
     UICtrl.showTotalCalories(totalCalories);
 
     //DELETE FROM LOCAL STORAGE
-    StorageCtrl.deleteItemFromStorage(currentItem.id)
+    StorageCtrl.deleteItemsFromStorage(currentItem.id)
 
     UICtrl.clearEditState();
 
@@ -476,19 +477,20 @@ const clearAll = function(e){
     //public method
     return{
         init: function(){
-            //set initial state
+        //set initial state
             UICtrl.clearEditState();
 
-            //fetching items from the data structure
+        //fetching items from the data structure
             const items = ItemCtrl.getItems();
 
-            //check if any items
-            if (items.length === 0){
+        //check if any items
+        if (items.length === 0){
                 UICtrl.hideList();
             } else {
                 UICtrl.populateItemList(items);
             }
-                  //get total calories
+        
+        //get total calories
         const totalCalories = ItemCtrl.getTotalCalories();
 
         //add total calories to UI
@@ -496,8 +498,8 @@ const clearAll = function(e){
         
 
 
-            //load event listeners
-            loadEventListeners();
+        //load event listeners
+        loadEventListeners();
         }
     }
 
