@@ -53,7 +53,8 @@ const StorageCtrl = (function(){
                 items.splice(index, 1)
                 }
             });
-            // localStorage.setItem('items', JSON.stringify(items));
+        localStorage.setItem('items', JSON.stringify(items));
+
         },
         clearItemsFromStorage: function(){
             localStorage.removeItem('items');
